@@ -11,6 +11,7 @@ public class ToggleManager : MonoBehaviour {
     public Toggle brightToggle;
     public Toggle ghostToggle;
     public Light sun;
+    public Material[] materials;
 
     // Use this for initialization
     void Start () {
@@ -42,8 +43,47 @@ public class ToggleManager : MonoBehaviour {
             {
                 if(gameObj.name == "Wall")
                 {
+                    Color color = gameObj.GetComponent<Renderer>().material.color;
                     BoxCollider collider = gameObj.GetComponent<BoxCollider>();
                     collider.enabled = !collider.enabled;
+                    if(!collider.enabled)
+                    {
+                        switch(gameObj.tag)
+                        {
+                            case "WallNorth":
+                                gameObj.GetComponent<Renderer>().material = materials[1];
+                                break;
+                            case "WallEast":
+                                gameObj.GetComponent<Renderer>().material = materials[3];
+                                break;
+                            case "WallSouth":
+                                gameObj.GetComponent<Renderer>().material = materials[5];
+                                break;
+                            case "WallWest":
+                                gameObj.GetComponent<Renderer>().material = materials[7];
+                                break;
+                            case "PongRoomWall":
+                                collider.enabled = !collider.enabled;
+                                break;
+                        }
+                    } else
+                    {
+                        switch (gameObj.tag)
+                        {
+                            case "WallNorth":
+                                gameObj.GetComponent<Renderer>().material = materials[0];
+                                break;
+                            case "WallEast":
+                                gameObj.GetComponent<Renderer>().material = materials[2];
+                                break;
+                            case "WallSouth":
+                                gameObj.GetComponent<Renderer>().material = materials[4];
+                                break;
+                            case "WallWest":
+                                gameObj.GetComponent<Renderer>().material = materials[6];
+                                break;
+                        }
+                    }                   
                 }
             }
         }
