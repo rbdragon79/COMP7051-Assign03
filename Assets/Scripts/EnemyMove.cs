@@ -7,12 +7,13 @@ public class EnemyMove : MonoBehaviour {
 
     Transform player;
     NavMeshAgent nav;
-    public GameManager gameManager;
+    GameObject gameManager;
 
 	// Use this for initialization
 	void Awake () {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         nav = GetComponent<NavMeshAgent>();
+        gameManager = GameObject.Find("GameManager");
 	}
 	
 	// Update is called once per frame
@@ -20,12 +21,21 @@ public class EnemyMove : MonoBehaviour {
         nav.SetDestination(player.position);
 	}
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.name == "PlayerBady")
+        {
+            nav.isStopped = true;
+            gameManager.GetComponent<GameManager>().EndGame();
+        }
+    }
+
+    /*private void OnTriggerEnter(Collider other)
     {
         if (other.name == "PlayerBady")
         {
             nav.isStopped = true;
             gameManager.EndGame();
         }
-    }
+    }*/
 }

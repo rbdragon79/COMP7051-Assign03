@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlaySoundOnBounce : MonoBehaviour {
 
@@ -19,12 +17,4 @@ public class PlaySoundOnBounce : MonoBehaviour {
             GetComponent<AudioSource>().Play();
         }
     }
-
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Ball")
-        {
-            GetComponent<AudioSource>().Play();
-        }
-    }*/
 }

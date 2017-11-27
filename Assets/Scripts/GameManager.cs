@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,8 +37,8 @@ public class GameManager : MonoBehaviour {
         ghostToggle.isOn = false;
         sun.enabled = !sun.enabled;
         GameObject maze = (GameObject)Instantiate(Resources.Load("Maze"));
+        GameObject enemyGO = (GameObject)Instantiate(enemy, new Vector3(-7.5f, 0, 7.5f), Quaternion.identity);
         player.transform.position = new Vector3(9.5f, 0, -9.5f);
-        enemy.transform.position = new Vector3(-7.5f, 0, 7.5f);
         timer = 0;
         StartCoroutine("SurvivalTime");
     }

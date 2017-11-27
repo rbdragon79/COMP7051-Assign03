@@ -25,6 +25,5 @@ public class MazeBallController : MonoBehaviour {
         GameObject go = (GameObject)Instantiate(mazeBall, transform.position, Quaternion.identity);
         ThrowBall tb = go.GetComponent<ThrowBall>();
         tb.Throw(transform.forward * speed);
-        Destroy(go, 2.5f);
     }
 }
