@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\BackgroundSoundClose.cs" />
     <Compile Include="Assets\Scripts\BackgroundSoundCol.cs" />
     <Compile Include="Assets\Scripts\Brightness.cs" />
+    <Compile Include="Assets\Scripts\EndMazeManager.cs" />
     <Compile Include="Assets\Scripts\EnemyMove.cs" />
     <Compile Include="Assets\Scripts\Footsteps.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />

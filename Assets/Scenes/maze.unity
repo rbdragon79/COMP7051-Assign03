@@ -405,7 +405,6 @@ MonoBehaviour:
   survivalTimeText: {fileID: 1251316364}
   player: {fileID: 1065657816}
   enemy: {fileID: 1838007965581864, guid: 11134d1ebf2bb02409ec4c45871fc2d0, type: 2}
-  endPanel: {fileID: 1299803518}
   ghostToggle: {fileID: 892381020}
   sun: {fileID: 1679407269}
 --- !u!4 &389252478
@@ -1039,7 +1038,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &959391221
 MonoBehaviour:
   m_ObjectHideFlags: 0

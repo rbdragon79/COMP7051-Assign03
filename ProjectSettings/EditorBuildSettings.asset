@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/pauseMaze.unity
     guid: ac0002dfb5a21184a8ea6c644d86623e
   - enabled: 1
+    path: Assets/Scenes/endMaze.unity
+    guid: fc019b8cf14d0ee4ebc9ab34a6ad70fa
+  - enabled: 1
     path: Assets/Scenes/menuPong.unity
     guid: c276cf9b3da15b4458923e5cd97daa73
   - enabled: 1

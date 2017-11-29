@@ -5,14 +5,14 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     CharacterController CharacterController;
-    //Rigidbody rigidBody;
+    GameObject gameManager;
     public float walk_Speed = 1.0f;
     public float turn_Speed = 100.0f;
 
     void Awake()
     {
         CharacterController = GetComponent<CharacterController>();
-        //rigidBody = GetComponent<Rigidbody>();
+        gameManager = GameObject.Find("GameManager");
     }
 
     // Update is called once per frame
@@ -24,6 +24,10 @@ public class PlayerMove : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         Vector3 moveForward = transform.forward * vertical * walk_Speed;
         CharacterController.SimpleMove(moveForward);
+        if(transform.position.x > 15f || transform.position.x < -15f || transform.position.z > 15f || transform.position.z < -15f)
+        {
+            gameManager.GetComponent<GameManager>().EndGame();
+        }
     }
 
     public delegate void PlayCollisionDelegate();
