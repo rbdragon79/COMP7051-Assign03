@@ -45,6 +45,7 @@ public class EndManager : MonoBehaviour {
 
     public void ReturnToMaze()
     {
+        PlayerPrefs.SetInt("fromPong", 1);
         SceneManager.LoadScene("maze");
     }
 }

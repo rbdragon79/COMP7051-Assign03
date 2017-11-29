@@ -29,13 +29,4 @@ public class EnemyMove : MonoBehaviour {
             gameManager.GetComponent<GameManager>().EndGame();
         }
     }
-
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if (other.name == "PlayerBady")
-        {
-            nav.isStopped = true;
-            gameManager.EndGame();
-        }
-    }*/
 }

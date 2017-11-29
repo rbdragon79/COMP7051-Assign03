@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class ThrowBall : MonoBehaviour {
 
     GameObject enemy;
     GameObject player;
     public GameObject enemyPrefab;
+    public Text scoreText;
+    public int score;
 
     private void Awake()
     {
         enemy = GameObject.FindWithTag("Enemy");
         player = GameObject.Find("PlayerBady");
+        scoreText = GameObject.Find("Score").GetComponent<Text>();
+        score = PlayerPrefs.GetInt("mazeScore");
     }
 
     public void Throw(Vector3 force)
@@ -21,9 +26,12 @@ public class ThrowBall : MonoBehaviour {
     {
         if (collision.gameObject == enemy)
         {
-            //Debug.Log("Enemy Hit!");
             Destroy(gameObject);
-            Destroy(enemy);
+            Destroy(enemy, .025f);
+            score += 100;
+            PlayerPrefs.SetInt("mazeScore", score);
+            scoreText.text = "SCORE: " + score.ToString("D5");
+
             // Respawn Enemy In NorthWest Quadrant
             if (player.transform.position.x > 0 && player.transform.position.z < 0)
             {
