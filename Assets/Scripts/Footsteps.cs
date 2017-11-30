@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Footsteps : MonoBehaviour
 {
-
     CharacterController CharacterController;
     public float walk_Speed = 1.0f;
     public GameObject footsteps;
+
     // Use this for initialization
     void Start()
     {
@@ -24,7 +24,6 @@ public class Footsteps : MonoBehaviour
             {
                 if (walk_Speed >= 1.0f)
                 {
-                    //Debug.Log("walk");
                     footsteps.GetComponent<AudioSource>().Play();
                 }
             }

@@ -8,12 +8,9 @@ public class GameManager : MonoBehaviour {
     public int timer;
     public Text timerText;
     public Text scoreText;
-    public Text survivalTimeText;
     public GameObject player;
     public GameObject enemy;
-    //public GameObject endPanel;
     public Toggle ghostToggle;
-    //private static bool gameEnd = false;
     public Light sun;
 
     GameObject maze;
@@ -23,16 +20,19 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     private void Awake()
     {
-        playerX = PlayerPrefs.GetFloat("playerX", 9.5f);
-        playerZ = PlayerPrefs.GetFloat("playerZ", -9.5f);
-        enemyX = PlayerPrefs.GetFloat("enemyX", -7.5f);
-        enemyZ = PlayerPrefs.GetFloat("enemyZ", 7.5f);
+        playerX = 9.5f;  // PlayerPrefs.GetFloat("playerX", 9.5f);
+        playerZ = -9.5f; // PlayerPrefs.GetFloat("playerZ", -9.5f);
+        enemyX = -7.5f;  // PlayerPrefs.GetFloat("enemyX", -7.5f);
+        enemyZ = 7.5f;   // PlayerPrefs.GetFloat("enemyZ", 7.5f);
         BeginGame();
     }
 
     // Update is called once per frame
     private void Update()
     {
+        Debug.Log("PlayerPrefs: " + PlayerPrefs.GetFloat("enemyX") + ", " + PlayerPrefs.GetFloat("enemyZ"));
+        Debug.Log("Enemy Location: " + GameObject.FindGameObjectWithTag("Enemy").transform.position);
+
         timerText.text = "TIME: " + timer.ToString();
         PlayerPrefs.SetInt("mazeTimer", timer);
 
@@ -44,14 +44,6 @@ public class GameManager : MonoBehaviour {
             PlayerPrefs.SetFloat("enemyX", enemyClone.transform.position.x);
             PlayerPrefs.SetFloat("enemyZ", enemyClone.transform.position.z);
             PlayerPrefs.SetInt("fromMazeSaved", 1);
-            Debug.Log("Pause Game");
-            Debug.Log("playerX: " + PlayerPrefs.GetFloat("playerX").ToString());
-            Debug.Log("playerZ: " + PlayerPrefs.GetFloat("playerZ").ToString());
-            Debug.Log("enemyX: " + PlayerPrefs.GetFloat("enemyX").ToString());
-            Debug.Log("enemyZ: " + PlayerPrefs.GetFloat("enemyZ").ToString());
-            Debug.Log("fromMazeSaved: " + PlayerPrefs.GetInt("fromMazeSaved").ToString());
-            Debug.Log("mazeTimer: " + PlayerPrefs.GetInt("mazeTimer").ToString());
-            Debug.Log("timer: " + timer.ToString());
             SceneManager.LoadScene("pauseMaze");
         }
 
@@ -63,15 +55,6 @@ public class GameManager : MonoBehaviour {
 
     private void BeginGame()
     {
-        Debug.Log("Begin Game");
-        Debug.Log("playerX: " + PlayerPrefs.GetFloat("playerX").ToString());
-        Debug.Log("playerZ: " + PlayerPrefs.GetFloat("playerZ").ToString());
-        Debug.Log("enemyX: " + PlayerPrefs.GetFloat("enemyX").ToString());
-        Debug.Log("enemyZ: " + PlayerPrefs.GetFloat("enemyZ").ToString());
-        Debug.Log("fromMazeSaved: " + PlayerPrefs.GetInt("fromMazeSaved").ToString());
-        Debug.Log("mazeTimer: " + PlayerPrefs.GetInt("mazeTimer").ToString());
-        Debug.Log("timer: " + timer.ToString());
-
         if (!PlayerPrefs.HasKey("fromPong"))
         {
             PlayerPrefs.SetInt("fromPong", 0);
@@ -82,12 +65,13 @@ public class GameManager : MonoBehaviour {
             PlayerPrefs.SetInt("fromMazeSaved", 0);
         }
 
-        if (PlayerPrefs.GetInt("fromMazeSaved") == 0)
+        if (PlayerPrefs.GetInt("fromMazeSaved") == 1)
         {
-            playerX = 9.5f;
-            playerZ = -9.5f;
-            enemyX = -7.5f;
-            enemyZ = 7.5f;            
+            Debug.Log("fromMazeSaved: 1");
+            playerX = PlayerPrefs.GetFloat("playerX");
+            playerZ = PlayerPrefs.GetFloat("playerZ");
+            enemyX = PlayerPrefs.GetFloat("enemyX");
+            enemyZ = PlayerPrefs.GetFloat("enemyZ");
         }
 
         if (PlayerPrefs.GetInt("fromPong") == 0 && PlayerPrefs.GetInt("fromMazeSaved") == 0)
@@ -98,15 +82,15 @@ public class GameManager : MonoBehaviour {
 
         if (GameObject.FindGameObjectWithTag("Enemy") != null)
         {
+            Debug.Log("Enemy Destroyed");
             Destroy(GameObject.FindGameObjectWithTag("Enemy"));
         }
 
+        //Debug.Log(playerX.ToString() + ", " + playerZ.ToString() + ", " + enemyX.ToString() + ", " + enemyZ.ToString());
         timer = PlayerPrefs.GetInt("mazeTimer");
         scoreText.text = "SCORE: " + PlayerPrefs.GetInt("mazeScore").ToString("D5");
         timerText.text = "TIME: " + PlayerPrefs.GetInt("mazeTimer").ToString();
         PlayerPrefs.SetInt("fromPong", 0);
-        //gameEnd = false;
-        //endPanel.SetActive(false);
         ghostToggle.isOn = false;
         sun.enabled = !sun.enabled;
         maze = (GameObject)Instantiate(Resources.Load("Maze"));
@@ -118,13 +102,6 @@ public class GameManager : MonoBehaviour {
 
     private void RestartGame()
     {        
-        /*if(gameEnd)
-        {
-            endPanel.SetActive(false);
-        } else
-        {
-            StopCoroutine("SurvivalTime");
-        }*/
         Destroy(maze);
         BeginGame();
     }
@@ -132,11 +109,6 @@ public class GameManager : MonoBehaviour {
     public void EndGame()
     {
         StopCoroutine("SurvivalTime");
-        /*endPanel.SetActive(true);
-        survivalTimeText.text = "You were caught\n"
-            + "You survived " + timer + " seconds\n"
-            + "Try Again";
-        gameEnd = true;*/
         PlayerPrefs.SetInt("fromMazeSaved", 0);
         SceneManager.LoadScene("endMaze");
     }

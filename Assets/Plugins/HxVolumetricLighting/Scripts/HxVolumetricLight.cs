@@ -322,7 +322,7 @@ public class HxVolumetricLight : MonoBehaviour
         }
         else
         {
-            Debug.Log("" + LightEnabled() + " " +  LightIntensity());
+            //Debug.Log("" + LightEnabled() + " " +  LightIntensity());
         }
     }
 

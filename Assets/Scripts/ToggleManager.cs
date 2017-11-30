@@ -1,17 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ToggleManager : MonoBehaviour {
 
     NoiseFog noiseFog;
-    public Toggle fogToggle;
     Brightness brightness;
-    public Toggle brightToggle;
-    public Toggle ghostToggle;
     public Light sun;
+    public Light flashlight;
     public Material[] materials;
+
+    public Toggle nightToggle;
+    public Toggle fogToggle;
+    public Toggle ghostToggle;
+    public Toggle flashlightToggle;
+    public Toggle musicToggle;
 
     // Use this for initialization
     void Start () {
@@ -21,6 +23,16 @@ public class ToggleManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        // Night Mode
+        if (Input.GetKeyDown(KeyCode.N) || Input.GetKeyDown("joystick button 1"))
+        {
+            nightToggle.isOn = !nightToggle.isOn;
+            brightness.enabled = !brightness.enabled;
+            sun.enabled = !sun.enabled;
+        }
+
+        // Fog Mode
         if (Input.GetKeyDown(KeyCode.F) ||  Input.GetKeyDown("joystick button 2"))
         {
             fogToggle.isOn = !fogToggle.isOn;
@@ -28,27 +40,21 @@ public class ToggleManager : MonoBehaviour {
 
         }
 
-        if(Input.GetKeyDown(KeyCode.N) ||  Input.GetKeyDown("joystick button 1"))
-        {
-            brightToggle.isOn = !brightToggle.isOn;
-            brightness.enabled = !brightness.enabled;
-            sun.enabled = !sun.enabled;
-        }
-
-        if (Input.GetKeyDown(KeyCode.W) ||  Input.GetKeyDown("joystick button 3"))
+        // Ghost Mode
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown("joystick button 3"))
         {
             ghostToggle.isOn = !ghostToggle.isOn;
 
             foreach (var gameObj in FindObjectsOfType(typeof(GameObject)) as GameObject[])
             {
-                if(gameObj.name == "Wall")
+                if (gameObj.name == "Wall")
                 {
                     Color color = gameObj.GetComponent<Renderer>().material.color;
                     BoxCollider collider = gameObj.GetComponent<BoxCollider>();
                     collider.enabled = !collider.enabled;
-                    if(!collider.enabled)
+                    if (!collider.enabled)
                     {
-                        switch(gameObj.tag)
+                        switch (gameObj.tag)
                         {
                             case "WallNorth":
                                 gameObj.GetComponent<Renderer>().material = materials[1];
@@ -66,7 +72,8 @@ public class ToggleManager : MonoBehaviour {
                                 collider.enabled = !collider.enabled;
                                 break;
                         }
-                    } else
+                    }
+                    else
                     {
                         switch (gameObj.tag)
                         {
@@ -83,9 +90,24 @@ public class ToggleManager : MonoBehaviour {
                                 gameObj.GetComponent<Renderer>().material = materials[6];
                                 break;
                         }
-                    }                   
+                    }
                 }
             }
         }
+
+        // Flashlight
+        if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown("joystick button 5"))
+        {
+            flashlightToggle.isOn = !flashlightToggle.isOn;
+            flashlight.enabled = !flashlight.enabled;
+        }
+
+        // Background Music
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown("joystick button 4"))
+        {
+            musicToggle.isOn = !musicToggle.isOn;
+            //music.enabled = !music.enabled;
+        }
+
     }
 }

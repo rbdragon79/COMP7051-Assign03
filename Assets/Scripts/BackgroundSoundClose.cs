@@ -5,25 +5,21 @@ using UnityEngine.UI;
 
 public class BackgroundSoundClose : MonoBehaviour
 {
-
-    //AudioSource audioSource;
     public GameObject backgroundsound;
     public GameObject backgroundsound2;
     public Toggle brightToggle;
+
     // Use this for initialization
     void Start()
     {
-
-
         backgroundsound2 = GameObject.Find("BackgroundSound2");
         backgroundsound = GameObject.Find("BackgroundSound");
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("joystick button 7") || Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown("joystick button 4") || Input.GetKeyDown(KeyCode.LeftShift))
         {
             if (backgroundsound.GetComponent<AudioSource>().isPlaying || backgroundsound2.GetComponent<AudioSource>().isPlaying)
             {
@@ -41,7 +37,6 @@ public class BackgroundSoundClose : MonoBehaviour
             {
                 if (!backgroundsound.GetComponent<AudioSource>().isPlaying && brightToggle.isOn)
                 {
-                    // Debug.Log("aa");
                     backgroundsound.GetComponent<AudioSource>().Play();
                 }
                 else if (!backgroundsound2.GetComponent<AudioSource>().isPlaying && !brightToggle.isOn)
